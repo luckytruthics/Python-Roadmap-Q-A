@@ -31,16 +31,17 @@ def reverse_list(arg):
 
 # Q5 Write a function that flattens a nested list of arbitrary depth into a single-level list.
 
-newlist = []
 def flatten_list(list1):
+  newlist = []
   for element in list1:
       if type(element) == list:
-         flatten_list(element)
+         newlist.extend(flatten_list(element))
       else:
         newlist.append(element)
   return newlist
 
 print(flatten_list([1,2,[3,4,5,[6,7]],6]))
+
 
 # Q6 Write a function given a target value target_num, return the index of an elements inside a list that adds up to the target_num
 
