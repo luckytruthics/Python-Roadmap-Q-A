@@ -28,17 +28,20 @@ path_exist('/content/sample_data/anscombe.json')
 
 # Q3  
 
-text_files_abs_path = []
 def all_text_files(path):
-  if os.path.isdir(path):
-    for subdir in os.listdir(path):
-      all_text_files(os.path.join(path,subdir))
-  elif os.path.isfile(path) and os.path.splitext(path)[1] == '.txt':
-    text_files_abs_path.append(path)
-  
-  return text_files_abs_path
+  emptylist = []
+  def inner_fun(path):
+    nonlocal emptylist
+    if os.path.isdir(path):
+      for subdir in os.listdir(path):
+        inner_fun(os.path.join(path,subdir))
+    elif os.path.isfile(path) and os.path.splitext(path)[1] == '.txt':
+      emptylist.append(path)
 
-all_text_files('/content/sample_data') 
+  inner_fun(path)
+  return emptylist
+
+all_text_files('/content/sample_data')
 
 
 # Q4
