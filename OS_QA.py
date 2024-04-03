@@ -28,18 +28,18 @@ path_exist('/content/sample_data/anscombe.json')
 
 # Q3  
 
-def all_text_files(path):
-  emptylist = []
-  def inner_fun(path):
-    nonlocal emptylist
-    if os.path.isdir(path):
-      for subdir in os.listdir(path):
-        inner_fun(os.path.join(path,subdir))
-    elif os.path.isfile(path) and os.path.splitext(path)[1] == '.txt':
-      emptylist.append(path)
+def all_text_files(file_path):
+  paths = []
+  def inner_fun(file_path):
+    nonlocal paths
+    if os.path.isdir(file_path):
+      for subdir in os.listdir(file_path):
+        inner_fun(os.path.join(file_path,subdir))
+    elif os.path.isfile(path) and os.path.splitext(file_path)[1] == '.txt':
+      paths.append(path)
 
   inner_fun(path)
-  return emptylist
+  return paths
 
 all_text_files('/content/sample_data')
 
@@ -48,23 +48,23 @@ all_text_files('/content/sample_data')
 
 import time
 
-def last_modified_time(path):
-  if os.path.exists(path):
-    date_time = time.ctime(os.path.getmtime(path))
+def last_modified_time(file_path):
+  if os.path.exists(file_path):
+    date_time = time.ctime(os.path.getmtime(file_path))
     return date_time
   
-path = '/content/sample_data/newdirectory/newfile.py'
-last_modified_time(path)
+file_path = '/content/sample_data/newdirectory/newfile.py'
+last_modified_time(file_path)
 
 
 # Q5
 
-def check_permission(path):
-  if os.access(path,os.F_OK) and os.path.isfile(path):
+def check_permission(file_path):
+  if os.access(file_path,os.F_OK) and os.path.isfile(file_path):
     print('Path Exists')
-    print('Write Access is granted') if os.access(path,os.W_OK) else print('Write Access is not granted')
-    print('Read Access is granted') if os.access(path,os.R_OK) else  print('Read Access is not granted')
-    print('File is executable') if os.access(path,os.X_OK) else print('File is not executable')   
+    print('Write Access is granted') if os.access(file_path,os.W_OK) else print('Write Access is not granted')
+    print('Read Access is granted') if os.access(file_path,os.R_OK) else  print('Read Access is not granted')
+    print('File is executable') if os.access(file_path,os.X_OK) else print('File is not executable')   
   else:
     print('Path doesn\'t exist')
   
